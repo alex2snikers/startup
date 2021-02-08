@@ -1,5 +1,15 @@
 
-.card {
-  width: 400px;
-  background-color: green;
+.login {
+    height: 100vh;
+    display: grid;
+    grid-template-areas:
+        ".  .   ."
+        ". form ."
+        ".  .   ."
+    ;
+
+    form {
+        grid-area: form;
+        align-self: center;
+    }
 }
