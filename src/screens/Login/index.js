@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
 import styles from './styles.m.scss';
@@ -8,6 +9,7 @@ const Login = () => {
 
     const onSubmit = (e) => {
         console.log(e);
+        axios.get('http://localhost:9010/login');
     }
 
     return (
@@ -26,6 +28,7 @@ const Login = () => {
                         </div>
 
                         <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                        <button class="btn btn-primary mt-3">Get user</button>
                     </div>
                 </div>
             </form>
