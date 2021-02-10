@@ -4,8 +4,8 @@
   "description": "startUp",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --mode development",
-    "backEnd:start": "node ./backEnd/app.js"
+    "fe:start": "webpack serve --mode development",
+    "be:start": "node ./backEnd/app.js"
   },
   "repository": {
     "type": "git",

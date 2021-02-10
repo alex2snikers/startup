@@ -1,0 +1,15 @@
+
+.login {
+    height: 100vh;
+    display: grid;
+    grid-template-areas:
+        ".  .   ."
+        ". form ."
+        ".  .   ."
+    ;
+
+    form {
+        grid-area: form;
+        align-self: center;
+    }
+}

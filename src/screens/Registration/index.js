@@ -4,11 +4,11 @@ import { useForm } from 'react-hook-form';
 
 import styles from './styles.m.scss';
 
-const Login = () => {
+const Registration = () => {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
-        axios.post('http://localhost:9010/login', {
+        axios.post('http://localhost:9010/registrate', {
             ...data
         });
     }
@@ -29,12 +29,11 @@ const Login = () => {
                         </div>
 
                         <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                        <button class="btn btn-primary mt-3">Registrate</button>
                     </div>
                 </div>
             </form>
         </div>
-    );
+    )
 }
 
-export default Login;
+export default Registration;
