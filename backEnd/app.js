@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
-const cors = require('cors')
+const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const port = 9010;
-const uri = "mongodb+srv://alex2snikers:222282351995@cluster0.iruem.mongodb.net/startup?retryWrites=true&w=majority";
+const uri = 'mongodb+srv://alex2snikers:222282351995@cluster0.iruem.mongodb.net/startup?retryWrites=true&w=majority';
+const TOKEN_SECRET = '7bc78545b1a3923cc1e1e19523fd5c3f20b409509';
 
 const User = require('./models/User');
 
@@ -19,11 +21,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
 
+function generateAccessToken(userId) {
+    return jwt.sign({ userId }, TOKEN_SECRET, { expiresIn: '24h' });
+}
+
 app.post('/login', async (req, res) => {
     User.find({ ...req.body })
         .exec()
-        .then(() => {
-            res.status(200)
+        .then((data) => {
+            if (data) {
+                const token = generateAccessToken(data[0]._id);
+                
+                res.status(200).json({ token });
+            } else {
+                res.status(400).json({ message: 'email or login is wrong' });
+            }
+            
         })
         .catch(err => {
             res.status(500).json({ error: err});

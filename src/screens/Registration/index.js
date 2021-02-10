@@ -1,16 +1,24 @@
 import React from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 
 import styles from './styles.m.scss';
 
 const Registration = () => {
     const { register, handleSubmit } = useForm();
+    const history = useHistory();
 
     const onSubmit = (data) => {
         axios.post('http://localhost:9010/registrate', {
             ...data
+        }).then(() => {
+            history.push('/');
         });
+    }
+
+    const handleOnLogin = () => {
+        history.push('/login');
     }
 
     return (
@@ -29,6 +37,7 @@ const Registration = () => {
                         </div>
 
                         <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                        <button class="btn btn-primary mt-3" onClick={handleOnLogin}>Login</button>
                     </div>
                 </div>
             </form>
