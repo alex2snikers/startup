@@ -25,6 +25,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-hook-form": "^6.15.1",
+    "react-query": "^3.8.3",
     "react-router-dom": "^5.2.0",
     "single-spa": "^5.9.1"
   },
