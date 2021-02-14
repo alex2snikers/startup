@@ -4,9 +4,8 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const port = 9010;
-const uri = 'mongodb+srv://alex2snikers:222282351995@cluster0.iruem.mongodb.net/startup?retryWrites=true&w=majority';
-const TOKEN_SECRET = '7bc78545b1a3923cc1e1e19523fd5c3f20b409509';
+
+const { port, uri, TOKEN_SECRET } = require('./constants');
 
 const User = require('./models/User');
 
@@ -22,7 +21,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 function generateAccessToken(userId) {
-    return jwt.sign({ userId }, TOKEN_SECRET, { expiresIn: '24h' });
+    return jwt.sign({ userId }, TOKEN_SECRET);
 }
 
 app.post('/login', async (req, res) => {
@@ -65,6 +64,14 @@ app.post('/registrate', async (req, res) => {
             res.status(400).json(err);
         });
 });
+
+// -------
+
+// app.use('/api/users', require('./api/users'));
+// app.use('/api/tasks', require('./api/tasks'));
+// app.use('/api/sprints', require('./api/sprints'));
+app.use('/api/projects', require('./routes/api/projects'));
+// app.use('/api/companies', require('./routes/api/companies'));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
