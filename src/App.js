@@ -1,7 +1,9 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import { useAuthCheck } from 'modules/auth/hooks';
 import { useGetProjects } from 'modules/project/hooks';
 
+import Board from 'screens/Board';
 import Header from 'containers/Header';
 import SideBar from 'containers/SideBar';
 
@@ -9,15 +11,16 @@ import styles from './styles.m.scss';
 
 const AuthRouter = () => {
     useAuthCheck();
-    const result = useGetProjects();
-    console.warn('result', result);
-    
+    useGetProjects();
+
     return (
         <div className={styles.page}>
             <Header />
             <SideBar />
             <main>
-                body
+                <Switch>
+                    <Route exact path="/:companyId/board" component={Board} />
+                </Switch>
             </main>
         </div>
     );

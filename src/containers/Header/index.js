@@ -1,19 +1,12 @@
 import React from 'react';
-import { useQueryClient } from 'react-query';
+import ProjectSelect from 'components/ProjectSelect';
 
-const Header = () => {
-    
-    const queryClient = useQueryClient();
-    // const query = queryClient.queryCache('projects');
-
-    console.warn('query HEADER', queryClient.getQueryData('projects'));
-    
-
-    return (
+const Header = () => {   
+    return(
         <header>
-            header
+            <ProjectSelect />
         </header>
-    )
+    );
 }
 
 export default Header;

@@ -32,6 +32,7 @@ module.exports = {
       }
     ]
   },
+  devtool: 'source-map',
   resolve: {
     modules: ['node_modules', 'src', 'backEnd'],
   },
