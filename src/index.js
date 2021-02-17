@@ -1,14 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider, QueryCache } from 'react-query';
 
 import Login from 'screens/Login';
 import Registration from 'screens/Registration';
 
 import App from './App';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    queryCache: new QueryCache(),
+});
 
 const Init = () => {
     return (
