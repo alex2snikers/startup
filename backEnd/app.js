@@ -70,8 +70,8 @@ app.post('/registrate', async (req, res) => {
 // app.use('/api/users', require('./api/users'));
 // app.use('/api/tasks', require('./api/tasks'));
 // app.use('/api/sprints', require('./api/sprints'));
+app.use('/api/columns', require('./routes/api/columns'));
 app.use('/api/projects', require('./routes/api/projects'));
-// app.use('/api/companies', require('./routes/api/companies'));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

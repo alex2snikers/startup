@@ -19,7 +19,7 @@ const AuthRouter = () => {
             <SideBar />
             <main>
                 <Switch>
-                    <Route exact path="/:companyId/board" component={Board} />
+                    <Route exact path="/:projectId/board" component={Board} />
                 </Switch>
             </main>
         </div>

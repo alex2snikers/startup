@@ -1,6 +1,6 @@
 import React from 'react';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import request from 'modules/auth/request';
 import { useHistory } from 'react-router-dom';
 
 import styles from './styles.m.scss';
@@ -10,7 +10,7 @@ const Login = () => {
     const history = useHistory();
 
     const onSubmit = (data) => {
-        request.post('/login', {
+        axios.post('/login', {
             ...data
         }).then((response) => {
             localStorage.setItem('token', response.data.token);

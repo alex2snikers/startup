@@ -10,7 +10,7 @@ const Registration = () => {
     const history = useHistory();
 
     const onSubmit = (data) => {
-        axios.post('http://localhost:9010/registrate', {
+        axios.post('/registrate', {
             ...data
         }).then(() => {
             history.push('/');

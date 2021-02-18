@@ -8,9 +8,9 @@ const ProjectSelect = () => {
     const projectsQuesy = queryClient.getQueryData('projects');
 
     const handleOnChange = ({ currentTarget }) => {
-        const companyId = currentTarget.getAttribute('data-id');
+        const projectId = currentTarget.getAttribute('data-id');
 
-        history.push(`/${companyId}/board`);
+        history.push(`/${projectId}/board`);
     }
 
     return projectsQuesy

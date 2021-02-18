@@ -6,9 +6,12 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import Login from 'screens/Login';
 import Registration from 'screens/Registration';
 
+import { configurateInterceptors } from 'modules/auth/utils';
+
 import App from './App';
 
 const queryClient = new QueryClient();
+configurateInterceptors();
 
 const Init = () => {
     return (
