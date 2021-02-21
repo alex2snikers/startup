@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Columns = require('../../models/Columns');
+const Columns = require('../../models/Column');
 const { authenticateJWT } = require('../../utils');
 
 router.get('/', authenticateJWT, async (req, res) => {

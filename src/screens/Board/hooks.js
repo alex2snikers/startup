@@ -2,10 +2,10 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 
 export const useFetchBoardData = (projectId) => {
-    console.warn('projectId', projectId);
-      
     return useQuery(['columns', projectId], async() => {
-        return await axios.get(`/api/columns?projectId=${projectId}`);
+        const response = await axios.get(`/api/projects/${projectId}/board`);
+
+        return response.data;
     }, {
         refetchOnWindowFocus: false,
     });
