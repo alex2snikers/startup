@@ -18,10 +18,36 @@ const Column = styled.li`
     list-style:none;
     min-width: 200px;
     background: red;
-    height: 200px;
+    min-height: 200px;
+    padding: 5px;
 `;
 
 const Board = ({ match }) => {
+    const handleOnDragstart = (ev) => {
+        const id = ev.currentTarget.getAttribute('id');
+
+        ev.dataTransfer.setData('taskId', id);
+        ev.dataTransfer.dropEffect = "move";
+    }
+
+    const handleOnDragOver = (ev) => {
+        ev.preventDefault();
+        ev.currentTarget.style.backgroundColor = 'green';
+    }
+
+    const handleOnDragLeave = (ev) => {
+        ev.preventDefault();
+        ev.currentTarget.style.backgroundColor = 'red';
+    }
+
+    const handleOnDrop = (ev) => {
+        ev.preventDefault();
+        const taskId = ev.dataTransfer.getData('taskId');
+
+        console.warn('ON DROP', taskId);
+        ev.target.appendChild(document.getElementById(taskId));
+    }
+
     const { data, isLoading } = useFetchBoardData(match.params.projectId);
 
     return isLoading
@@ -30,9 +56,20 @@ const Board = ({ match }) => {
             <ColumsWrapper>
                 {data.map((board) => {
                     return (
-                        <Column key={board.column._id}>
+                        <Column
+                            id={board.column._id}
+                            key={board.column._id}
+                            onDrop={handleOnDrop}
+                            onDragOver={handleOnDragOver}
+                            onDragLeave={handleOnDragLeave}
+                        >
                             <header>{board.column.title}</header>
-                            {board.tasks.map(task => <Task key={task._id} data={task} />)}
+                            {board.tasks.map(task => <Task
+                                key={task._id}
+                                id={task._id}
+                                data={task}
+                                onDragStart={handleOnDragstart}
+                            />)}
                         </Column>
                     );
                 })}
