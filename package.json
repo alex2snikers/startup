@@ -23,6 +23,7 @@
     "mongodb": "^3.6.4",
     "mongoose": "^5.11.15",
     "react": "^16.14.0",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.14.0",
     "react-hook-form": "^6.15.1",
     "react-query": "^3.8.3",
