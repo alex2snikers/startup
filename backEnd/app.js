@@ -68,7 +68,7 @@ app.post('/registrate', async (req, res) => {
 // -------
 
 // app.use('/api/users', require('./api/users'));
-// app.use('/api/tasks', require('./api/tasks'));
+app.use('/api/tasks', require('./routes/api/tasks'));
 // app.use('/api/sprints', require('./api/sprints'));
 app.use('/api/columns', require('./routes/api/columns'));
 app.use('/api/projects', require('./routes/api/projects'));

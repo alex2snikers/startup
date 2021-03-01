@@ -5,6 +5,7 @@ const TaskSchema = mongoose.Schema({
     title: String,
     startData: Date,
     endData: Date,
+    position: Number,
     epicId: mongoose.Schema.Types.ObjectId,
     sprintId: mongoose.Schema.Types.ObjectId,
     projectId: mongoose.Schema.Types.ObjectId,

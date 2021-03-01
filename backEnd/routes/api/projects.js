@@ -23,7 +23,7 @@ router.get('/:id/board', authenticateJWT, async (req, res) => {
 
             return {
                 column, 
-                tasks,
+                tasks: tasks.sort((a, b) => a.position - b.position),
             };
         })]
     );

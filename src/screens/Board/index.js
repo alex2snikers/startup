@@ -6,7 +6,7 @@ import styles from './styles.m.scss';
 
 import Task from 'containers/Task';
 
-import { useFetchBoardData } from './hooks';
+import { useFetchBoardData, useUpdateTaskMutation } from './hooks';
 
 const ColumsWrapper = styled.ul`
     display: grid;
@@ -89,26 +89,35 @@ const Column = styled.li`
 
 
 const Board = ({ match }) => {
-    const { data, isLoading } = useFetchBoardData(match.params.projectId);
+    const { mutate: updateTask } = useUpdateTaskMutation();
+    const { data, isLoading, ...props } = useFetchBoardData(match.params.projectId);
 
-    const onBeforeCapture = () => {
-        console.log('onBeforeCapture');
+    const onBeforeCapture = (ev) => {
+        console.log('onBeforeCapture', ev);
     };
     
-    const onBeforeDragStart = () => {
-        console.log('onBeforeDragStart');
+    const onBeforeDragStart = (ev) => {
+        console.log('onBeforeDragStart', ev);
     };
     
-    const onDragStart = () => {
-        console.log('onDragStart');
+    const onDragStart = (ev) => {
+        console.log('onDragStart', ev);
     };
     
-    const onDragUpdate = () => {
-        console.log('onDragUpdate');
+    const onDragUpdate = (ev) => {
+        console.log('onDragUpdate', ev);
     };
     
-    const onDragEnd = () => {
-        console.log('onDragEnd');
+    const onDragEnd = (ev) => {
+        const newPosition = ev.destination.index + 1;
+
+        updateTask({
+            id: ev.draggableId,
+            position: newPosition,
+            coulmnId: ev.source.droppableId,
+        });
+
+        console.log('onDragEnd', ev);
     };
 
     return isLoading
