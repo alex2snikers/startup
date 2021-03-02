@@ -114,7 +114,9 @@ const Board = ({ match }) => {
         updateTask({
             id: ev.draggableId,
             position: newPosition,
-            coulmnId: ev.source.droppableId,
+            columnId: ev.source.droppableId,
+            source: ev.source,
+            destination: ev.destination,
         });
 
         console.log('onDragEnd', ev);

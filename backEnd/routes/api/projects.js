@@ -13,17 +13,36 @@ router.get('/', authenticateJWT, async (req, res) => {
     res.status(200).json(companies);
 });
 
+
+
 router.get('/:id/board', authenticateJWT, async (req, res) => {
     const projectId = req.params.id;
     const columns = await Column.find({ projectId });
 
     const data =  await Promise.all(
         [...columns.map(async (column) => {
-            const tasks = await Tasks.find({ projectId, columnId: column._id });
+            const unsortedTasks = await Tasks.find({ projectId, columnId: column._id });
+            const headTask = unsortedTasks.find(task => task.after === null)
+            const sortedTasks = [];
+            
+            if (headTask) {
+                sortedTasks.push(headTask);
 
+                for (let i = 0; i < unsortedTasks.length; i++) {
+                    const nextTask = unsortedTasks.find((task => task._id === sortedTasks[i]));
+                    sortedTasks.push(nextTask);
+                }
+            }
+
+            console.warn('unsortedTasks', unsortedTasks);
+            if (unsortedTasks.length) {
+                console.log('after', unsortedTasks[0].after);
+            }
+            console.warn('headTask', headTask);
+            
             return {
                 column, 
-                tasks: tasks.sort((a, b) => a.position - b.position),
+                tasks: sortedTasks,
             };
         })]
     );

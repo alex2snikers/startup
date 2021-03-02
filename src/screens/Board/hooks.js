@@ -12,6 +12,14 @@ export const useFetchBoardData = (projectId) => {
     });
 }
 
+const reorderTasks = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+};
+
 export const useUpdateTaskMutation = () => {
     const queryClient = useQueryClient();
     const match = useRouteMatch('/:projectId');
@@ -21,30 +29,26 @@ export const useUpdateTaskMutation = () => {
             position: task.position,
         })
     }, {
-        onSuccess: (a, bodyRequest, context) => {
-            console.warn(bodyRequest);
-            
+        onSuccess: (a, bodyRequest) => {
             const columns = queryClient.getQueryData(['columns', match.params.projectId]);
-            console.warn(columns[0].tasks);
-            
-            // TODO : Optimaze HERE
-            const newColumnsData = columns.map(item => {
+            const chengedColumns = columns.map(item => {
                 if (item.column._id === bodyRequest.columnId) {
-                    item.tasks.map(task => {
-                        if (task._id === bodyRequest.id) {
-                            task.position = bodyRequest.position;
-                        }
-
-                        return task
-                    });
-
+                    const newTaskOrder = reorderTasks(
+                        item.tasks,
+                        bodyRequest.source.index,
+                        bodyRequest.destination.index,
+                    );
+        
+                    return {
+                        ...item,
+                        tasks: newTaskOrder,
+                    }
                 }
-            
-                return item;
-            });
 
-            console.warn(newColumnsData[0].tasks);
+                return item;
+            })
             
+            queryClient.setQueryData(['columns', match.params.projectId], chengedColumns)
         },
     });
 }
